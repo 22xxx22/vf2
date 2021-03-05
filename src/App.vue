@@ -1,56 +1,37 @@
 <template>
   <v-app>
     <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+      <v-app-bar-nav-icon @click="drawer =! drawer" />
+      <site-title :title="title"></site-title>
+      <v-spacer/>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
     </v-app-bar>
+    <v-navigation-drawer app v-model="drawer">
+      <site-menu></site-menu>
+    </v-navigation-drawer>
+    <v-content>
+      <router-view/>
+    </v-content>
+    <site-footer :footer="footer"></site-footer>
 
-    <v-main>
-      <HelloWorld />
-    </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
+import SiteTitle from '@/views/site/title.vue'
+import SiteFooter from '@/views/site/footer.vue'
+import SiteMenu from '@/views/site/menu.vue'
 
 export default {
-  name: "App",
-
-  components: {
-    HelloWorld,
-  },
-
-  data: () => ({
-    //
-  }),
-};
+  components: { SiteTitle, SiteFooter, SiteMenu },
+  name: 'App',
+  data () {
+    return {
+      drawer: false,
+      items: [],
+      title: 'TITLE',
+      footer: 'FOOTER'
+    }
+  }
+}
 </script>
